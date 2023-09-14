@@ -6,7 +6,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
-	<title>Dashboard - eCommerce | Vuexy - Bootstrap Admin Template</title>
+	<title>Paguyuban Sekolah | @yield('title') </title>
 
 	<meta name="description" content="" />
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -15,7 +15,7 @@
 	<!-- Favicon -->
 	<link rel="icon" type="image/x-icon" href="./assets/img/favicon/favicon.ico" />
 
-    @include('layout/css') 
+    @include('layout/css')
 
 
 	<!-- Helpers -->
@@ -31,13 +31,13 @@
 	<div class="layout-wrapper layout-content-navbar">
 		<div class="layout-container">
 			<!-- Menu -->
-            @include('layout/sidebar') 
+            @include('layout/sidebar')
 			<!-- / Menu -->
 
 			<!-- Layout container -->
 			<div class="layout-page">
 				<!-- Navbar -->
-                @include('layout/navbar') 
+                @include('layout/navbar')
 				<!-- / Navbar -->
 
 				<!-- Content wrapper -->
@@ -45,12 +45,13 @@
 					<!-- Content -->
 					<!-- <div class="container-fluid flex-grow-1 container-p-y"> -->
 					<div class="container-xxl flex-grow-1 container-p-y">
-					@yield('content')
+						<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">@yield('breadcrumb')/</span> @yield('title')</h4>
+						@yield('content')
 					</div>
 					<!-- / Content -->
 
 					<!-- Footer -->
-                    @include('layout/footer') 
+                    @include('layout/footer')
 					<!-- / Footer -->
 
 					<div class="content-backdrop fade"></div>
@@ -69,7 +70,7 @@
 	<!-- / Layout wrapper -->
 
 	<!-- Core JS -->
-	@include('layout/js') 
+	@include('layout/js')
 
 	<!-- Page JS -->
 	@yield('js')

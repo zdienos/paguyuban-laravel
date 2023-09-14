@@ -1,5 +1,8 @@
 @extends('index')
 
+@section('title','Guru')
+@section('breadcrumb','Master')
+
 @section('content')
     <div class="card">
         {{-- <div class="card-header border-bottom">

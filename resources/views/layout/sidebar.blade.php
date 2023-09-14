@@ -21,7 +21,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <li class="menu-item active">
+        <li class="menu-item">
             <a href="index.html" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-smart-home"></i>
                 <div data-i18n="Beranda">Beranda</div>
@@ -29,14 +29,14 @@
         </li>
 
         <!-- Master -->
-        <li class="menu-item">
+        <li class="menu-item {{ in_array(request()->route()->getName(),['guru.','kelas']) ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Master">Master</div>
             </a>
 
             <ul class="menu-sub">
-                <li class="menu-item">
+                <li class="menu-item {{ in_array(request()->route()->getName(),['guru.','kelas']) ? 'active' : '' }}">
                     <a href="layouts-collapsed-menu.html" class="menu-link">
                         <div data-i18n="Data Guru">Data Guru</div>
                     </a>

@@ -50,4 +50,17 @@ class guruController extends Controller
         return response()->json($response);
     }
 
+    public function hapus(Request $request)
+    {
+        $response = ['status' => false, 'message' => 'Gagal menghapus'];
+        $id = request('id');
+
+        if ($id) {
+            Guru::where(['id' => $id])->delete();
+            $response = ['status' => true, 'message' => 'Berhasil menghapus'];
+        }
+
+        return response()->json($response);
+    }
+
 }

@@ -23,11 +23,12 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'guru', 'as' => 'guru.'], function () {
     Route::get('/', [guruController::class, 'index']);
-    Route::get('/get', [guruController::class, 'get'])->name('get');    
-    Route::post('/simpan', [guruController::class, 'simpan'])->name('simpan');    
+    Route::get('/get', [guruController::class, 'get'])->name('get');
+    Route::post('/simpan', [guruController::class, 'simpan'])->name('simpan');
+    Route::post('/hapus', [guruController::class, 'hapus'])->name('hapus');
 });
 
-
+// request()->in_array()
 // Route::controller(GuruController::class)->prefix('guru')->as('guru.')->group(function() {
 //     Route::get('/','index')->name('index');
 //     Route::get('/get','get')->name('get');

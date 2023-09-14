@@ -51,6 +51,7 @@
         // Datatable (jquery)
         var dtGuruTable = $('.datatables-guru'),
             dtGuru;
+
         $(function() {
 
             if (dtGuruTable.length) {
@@ -86,7 +87,7 @@
                                 return (
                                     `<div class="d-flex align-items-center">
                                 <a href="javascript:;" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>
-                                <a href="javascript:;" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>
+                                <a href="javascript:;" class="text-body delete-record" data-id="${full.id}"><i class="ti ti-trash ti-sm mx-2"></i></a>
                                 </div>`
                                 );
                             }
@@ -329,14 +330,52 @@
             }
             $('div.head-label').html('<h5 class="card-title mb-0">Data Guru</h5>');
 
-            // Delete Record
-            $('.datatables-guru tbody').on('click', '.delete-record', function() {
-                dt_user.row($(this).parents('tr')).remove().draw();
-            });
+             // Delete Record
+            $('.datatables-guru tbody').on('click', '.delete-record', function(e) {
+                let $id = $(this).data('id');
 
+                Swal.fire({
+                    title: 'Peringatan',
+                    text: "Anda yakin ingin menghapus data?",
+                    icon: 'warning',
+                    //showCancelButton: false,
+                    confirmButtonText: 'Ya',
+                    cancelButtonText: 'Batal',
+                    customClass: {
+                    confirmButton: 'btn btn-primary me-3',
+                    cancelButton: 'btn btn-label-secondary'
+                    },
+                    buttonsStyling: false
+                }).then(function (result) {
+                    if (result.value) {
+                        $.ajax({
+                            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                            type: "POST",
+                            dataType: "JSON",
+                            data: {
+                                id: $id,
+                            },						
+                            url: "{{ route('guru.hapus') }}",
+                            success: function(response) {							
+                                if (response.status) {
+                                    pesan('success', 'Sukses', response.message);
+                                } else {
+                                    pesan('error', 'Error', response.message);
+                                }
+                                $('#modalAdd').modal('hide');
+                                dtGuruTable.DataTable().ajax.reload(null, false);
+                                // dtGuru.row($(this).parents('tr')).remove().draw();
+                                // dtGuru.ajax.reload(null, false);
+                            }
+                        });
+                    }
+                });
+                e.preventDefault();
+                
+            });
         });
 
-
+        
         // simpan data
         $('.data-submit').on('click', function() {
             var $nama_lengkap = $('.tambah-guru .dt-nama-lengkap').val(),
@@ -378,9 +417,9 @@
                         // dtGuru.ajax.reload(null, false);
                         dtGuruTable.DataTable().ajax.reload(null, false);
                         if (data.status) {
-                            pesan('success', 'Sukses', data.pesan);
+                            pesan('success', 'Sukses', data.message);
                         } else {
-                            pesan('error', 'Error', data.pesan);
+                            pesan('error', 'Error', data.message);
                         }
                     }
                 });

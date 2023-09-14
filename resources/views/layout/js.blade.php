@@ -19,22 +19,34 @@
 <!-- Vendors JS -->
 <script src="./assets/vendor/libs/apex-charts/apexcharts.js"></script>
 <script src="./assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-{{-- <script src="./assets/vendor/libs/datatables-bs5/datatables.min.js"></script> --}}
 
 <script src="./assets/vendor/libs/block-ui/block-ui.js"></script>
 {{-- <script src="./assets/js/extended-ui-blockui.js"></script> --}}
 <script src="./assets/vendor/libs/toastr/toastr.js"></script>
-
+<script src="./assets/vendor/libs/sweetalert2/sweetalert2.js"></script>
 
 
 <!-- Main JS -->
 <script src="./assets/js/main.js"></script>
 
 
-
 <script>
     pesan = (tipe, title, teks) => {
-        toastr[tipe](teks,title)
+        // toastr[tipe](teks,title);
+        switch (tipe) {
+            case 'success':
+                toastr.success(teks, title, { timeOut: 1000 });
+                break;
+            case 'info':
+                toastr.info(teks, title, { timeOut: 1000 });
+                break;
+            case 'warning':
+                toastr.warning(teks, title, { timeOut: 1000 });
+                break;
+            case 'error':
+                toastr.error(teks, title, { timeOut: 1000 });
+                break;
+        }
     }
     
 </script>

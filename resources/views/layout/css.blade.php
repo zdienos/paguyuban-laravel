@@ -25,4 +25,6 @@
 
 <link rel="stylesheet" href="./assets/vendor/libs/formvalidation/dist/css/formValidation.min.css" />
 <link rel="stylesheet" href="./assets/vendor/libs/toastr/toastr.css" />
+<link rel="stylesheet" href="./assets/vendor/libs/sweetalert2/sweetalert2.css" />
+
 
