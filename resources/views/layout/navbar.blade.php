@@ -1,5 +1,5 @@
 <!-- <nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar"> -->
-     
+
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme" id="layout-navbar">
     <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
         <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
@@ -17,7 +17,14 @@
                 </a>
             </div>
         </div> --}}
+        <div class="navbar-nav align-items-center">
+            <div class="nav-item navbar-search-wrapper mb-0">
+
+                <h4 class="fw-bold mt-3"><span class="text-muted fw-light">@yield('breadcrumb') /</span> @yield('title')</h4>
+            </div>
+        </div>
         <!-- /Search -->
+
 
         <ul class="navbar-nav flex-row align-items-center ms-auto">
             <!-- Notification -->
@@ -115,7 +122,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="auth-login-cover.html" target="_blank">
+                        <a class="dropdown-item" href="{{ route('auth.logout') }}">
                             <i class="ti ti-logout me-2 ti-sm"></i>
                             <span class="align-middle">Log Out</span>
                         </a>

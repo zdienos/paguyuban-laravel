@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\guruController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,19 +16,56 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+// Route::get('/auth', function () {
+//     return view('auth.index');
+// });
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard.index');
+// });
+
+Route::group(['prefix' => 'auth', 'as' => 'auth.'], function () {
+    // Route::get('/', function(){
+    //     return route('auth.index');
+    //     // return route('auth');
+    // });
+    Route::get('/', [AuthController::class, 'index'])->name('/');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
 
 // Route::resource('guru','guruController');
+// Route::group(['middleware' => ['auth']], function () {
 
-Route::group(['prefix' => 'guru', 'as' => 'guru.'], function () {
+Route::group([
+    'middleware'=>['auth'],
+    'prefix' => 'dashboard',
+    'as' => 'dashboard.'
+    ], function () {
+    // Route::get('/', function() {
+    //     return view('dashboard.index');
+    // });
+    Route::get('/', [DashboardController::class, 'ndashmu'])->name('zed');
+    // Route::get('/ndashmu', [DashboardController::class, 'ndashmu'])->name('zed');
+
+// Route::get('/get', [guruController::class, 'get'])->name('get');
+// Route::post('/simpan', [guruController::class, 'simpan'])->name('simpan');
+// Route::post('/hapus', [guruController::class, 'hapus'])->name('hapus');
+});
+
+Route::group([
+        'middleware'=>['auth'],
+        'prefix' => 'guru',
+        'as' => 'guru.'
+    ], function () {
     Route::get('/', [guruController::class, 'index']);
     Route::get('/get', [guruController::class, 'get'])->name('get');
     Route::post('/simpan', [guruController::class, 'simpan'])->name('simpan');
     Route::post('/hapus', [guruController::class, 'hapus'])->name('hapus');
 });
+
 
 // request()->in_array()
 // Route::controller(GuruController::class)->prefix('guru')->as('guru.')->group(function() {
