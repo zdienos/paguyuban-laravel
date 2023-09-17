@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Guru;
 
+use function Psy\debug;
 
-class guruController extends Controller
+class GuruController extends Controller
 {
 
     public function index()
@@ -31,6 +32,7 @@ class guruController extends Controller
         if ($validator->fails()) {
             $response = ['status' => false, 'message' => $validator->errors()->all()];
         } else {
+            // dd($request);
             Guru::updateOrCreate(
                 [
                     'id' => $request->id

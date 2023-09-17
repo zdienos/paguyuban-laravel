@@ -33,7 +33,7 @@
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body mx-0 flex-grow-0 pt-0 h-100">
-                <form action="http://link" method="post" class="tambah-guru pt-0" id="addNewUserForm"
+                <form class="tambah-guru pt-0" id="addNewUserForm"
                     zonsubmit="return false">
                     <div class="mb-3">
                         <label class="form-label" for="add-guru-nama">Nama Lengkap</label>
@@ -67,7 +67,7 @@
                         <input type="text" class="form-control dt-handphone"
                             placeholder="Handphone" aria-label="Handphone" name="userHandphone" />
                     </div>
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit" data-bs-dismiss="offcanvas">Simpan</button>
+                    <button type="submit" class="btn btn-primary me-sm-3 me-1 btn-simpan" name="xxxxxsubmitButton">Simpan</button>
                     <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Batal</button>
                 </form>
             </div>

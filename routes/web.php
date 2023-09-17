@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\guruController;
+use App\Http\Controllers\GuruController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,10 +60,10 @@ Route::group([
         'prefix' => 'guru',
         'as' => 'guru.'
     ], function () {
-    Route::get('/', [guruController::class, 'index']);
-    Route::get('/get', [guruController::class, 'get'])->name('get');
-    Route::post('/simpan', [guruController::class, 'simpan'])->name('simpan');
-    Route::post('/hapus', [guruController::class, 'hapus'])->name('hapus');
+    Route::get('/', [GuruController::class, 'index']);
+    Route::get('/get', [GuruController::class, 'get'])->name('get');
+    Route::post('/simpan', [GuruController::class, 'simpan'])->name('simpan');
+    Route::post('/hapus', [GuruController::class, 'hapus'])->name('hapus');
 });
 
 

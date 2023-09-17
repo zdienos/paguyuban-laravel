@@ -1,18 +1,69 @@
+{{-- @section('jsxx') --}}
     <script type="text/javascript">
         'use strict';
 
         var myOffcanvas = document.getElementById("offcanvasAddUser"),
             bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas);
+        var editMode;
 
+        // const fv = $('#addNewUserForm').data('formValidation');
+
+        // and then call method
+        // Replace METHOD_NAME with the real method name
+
+        // document.addEventListener('DOMContentLoaded', function(e) {
+        //     (function() {
+        //         const formAddNewRecord = document.getElementById('addNewUserForm');
+        //         fv = FormValidation.formValidation(formAddNewRecord, {
+        //             fields: {
+        //                 namaGuru: {
+        //                     validators: {
+        //                         notEmpty: {
+        //                             message: 'Masukkan nama guru '
+        //                         }
+        //                     }
+        //                 },
+        //                 // userEmail: {
+        //                 //     validators: {
+        //                 //         notEmpty: {
+        //                 //             message: 'Please enter your email'
+        //                 //         },
+        //                 //         emailAddress: {
+        //                 //             message: 'The value is not a valid email address'
+        //                 //         }
+        //                 //     }
+        //                 // }
+        //             },
+        //             plugins: {
+        //                 trigger: new FormValidation.plugins.Trigger(),
+        //                 bootstrap5: new FormValidation.plugins.Bootstrap5({
+        //                     // Use this for enabling/changing valid/invalid class
+        //                     eleValidClass: '',
+        //                     rowSelector: function(field, ele) {
+        //                         // field is the field name & ele is the field element
+        //                         return '.mb-3';
+        //                     }
+        //                 }),
+        //                 submitButton: new FormValidation.plugins.SubmitButton(),
+        //                 // Submit the form when all fields are valid
+        //                 // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
+        //                 autoFocus: new FormValidation.plugins.AutoFocus()
+        //             }
+        //         });
+        //     })();
+        // });
+
+        // Datatable (jquery)
         var dtGuruTable = $('.datatables-guru'),
             dtGuru;
 
         $(function() {
+        // $(document).ready(function() {
 
             if (dtGuruTable.length) {
                 var dtGuru = dtGuruTable.DataTable({
                     processing: true,
-                    ajax: "{{ route('guru.get') }}",
+                    ajax: "{{ route('guru.get') }}", // JSON file to add data
                     columns: [{
                             data: 'id'
                         },
@@ -41,8 +92,8 @@
                             render: function(data, type, full, meta) {
                                 return (
                                     `<div class="d-flex align-items-center">
-                                <a href="#" class="text-body btn-edit" data-id="${full.id}"><i class="ti ti-edit ti-sm me-2"></i></a>
-                                <a href="#" class="text-body btn-hapus" data-id="${full.id}"><i class="ti ti-trash ti-sm mx-2"></i></a>
+                                <a href="#" class="text-body edit-record" data-id="${full.id}"><i class="ti ti-edit ti-sm me-2"></i></a>
+                                <a href="#" class="text-body delete-record" data-id="${full.id}"><i class="ti ti-trash ti-sm mx-2"></i></a>
                                 </div>`
                                 );
                             }
@@ -286,7 +337,7 @@
             $('div.head-label').html('<h5 class="card-title mb-0">Data Guru</h5>');
 
             // Delete Record
-            $('.datatables-guru tbody').on('click', '.btn-hapus', function(e) {
+            $('.datatables-guru tbody').on('click', '.delete-record', function(e) {
                 let $id = $(this).data('id');
 
                 Swal.fire({
@@ -332,16 +383,21 @@
             });
 
             // edit data
-            $('.datatables-guru tbody').on('click', '.btn-edit', function() {
+            $('.datatables-guru tbody').on('click', '.edit-record', function() {
+                editMode = true;
                 let myRow = dtGuruTable.DataTable().row($(this).parents('tr')).data();
-                $('.dt-nama-lengkap').val(myRow.nama_lengkap);
-                $('.dt-nik').val(myRow.nik);
-                $('.dt-kelamin').val(myRow.kelamin);
-                $('.dt-bidang-studi').val(myRow.bidang_studi);
-                $('.dt-alamat').val(myRow.alamat);
-                $('.dt-handphone').val(myRow.handphone);
-                $('.btn-simpan').data('id', myRow.id);
+                $('.tambah-guru .dt-nama-lengkap').val(myRow.nama_lengkap);
+                $('.tambah-guru .dt-nik').val(myRow.nik);
+                $('.tambah-guru .dt-kelamin').val(myRow.kelamin);
+                $('.tambah-guru .dt-bidang-studi').val(myRow.bidang_studi);
+                $('.tambah-guru .dt-alamat').val(myRow.alamat);
+                $('.tambah-guru .dt-handphone').val(myRow.handphone);
+                $('.data-submit').data('id', myRow.id);
                 bsOffcanvas.show();
+                // $('.modal-title').html('Edit Brand');
+                // $('#name').val(myrow.name);
+                // $('.btn-save').data('id', myrow.id);
+                // $('#modalAdd').modal('show');
             });
 
             $('#addNewUserForm').formValidation({
@@ -370,16 +426,20 @@
                     // defaultSubmit: new FormValidation.plugins.DefaultSubmit(),
                     autoFocus: new FormValidation.plugins.AutoFocus()
                 },
+                // }).on('success.form.fv', function(e) {
             });
 
-            $('.btn-simpan').on('click',  function(e) {
-                let $nama_lengkap = $('.dt-nama-lengkap').val(),
-                    $nik = $('.dt-nik').val(),
-                    $kelamin = $('.dt-kelamin').val(),
-                    $bidang_studi = $('.dt-bidang-studi').val(),
-                    $alamat = $('.dt-alamat').val(),
-                    $handphone = $('.dt-handphone').val();
-                let $id = $(this).data('id');
+            // $(document).on('click','.data-submit',  function(e) {
+            $('.data-submit').on('click',  function(e) {
+                // alert('wer');
+                // e.preventDefault();
+                let $nama_lengkap = $('.tambah-guru .dt-nama-lengkap').val(),
+                    $nik = $('.tambah-guru .dt-nik').val(),
+                    $kelamin = $('.tambah-guru .dt-kelamin').val(),
+                    $bidang_studi = $('.tambah-guru .dt-bidang-studi').val(),
+                    $alamat = $('.tambah-guru .dt-alamat').val(),
+                    $handphone = $('.tambah-guru .dt-handphone').val();
+                let $id = $('.data-submit').data('id');
                 let fv = $('#addNewUserForm').data('formValidation');
 
                 fv.validate().then(function(status) {

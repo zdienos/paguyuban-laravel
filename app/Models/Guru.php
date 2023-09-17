@@ -11,11 +11,11 @@ class Guru extends Model
 
     protected $fillable = [
         'nama_lengkap',
-        // 'nip',
-        // 'kelamin',
-        // 'bidang_studi',
-        // 'alamat',
-        // 'handphone'
+        'nik',
+        'kelamin',
+        'bidang_studi',
+        'alamat',
+        'handphone'
     ];
 
     // public function toStrukturUnit()

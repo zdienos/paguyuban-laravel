@@ -8,6 +8,8 @@
 <script src="./assets/vendor/libs/formvalidation/dist/js/FormValidation.min.js"></script>
 <script src="./assets/vendor/libs/formvalidation/dist/js/plugins/Bootstrap5.min.js"></script>
 <script src="./assets/vendor/libs/formvalidation/dist/js/plugins/AutoFocus.min.js"></script>
+<script src="./assets/vendor/libs/formvalidation/dist/js/plugins/J.min.js"></script>
+
 
 <script src="./assets/vendor/libs/hammer/hammer.js"></script>
 <script src="./assets/vendor/libs/i18n/i18n.js"></script>
@@ -48,5 +50,5 @@
                 break;
         }
     }
-    
+
 </script>
