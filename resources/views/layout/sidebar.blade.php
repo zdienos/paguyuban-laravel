@@ -21,7 +21,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <li class="menu-item">
+        <li class="menu-item {{ request()->route()->getName() == 'dashboard.zed' ? 'active' : '' }}">
             <a href="{{ route('dashboard.zed') }}" class="menu-link">
                 <i class="menu-icon tf-icons ti ti-smart-home"></i>
                 <div data-i18n="Beranda">Beranda</div>
