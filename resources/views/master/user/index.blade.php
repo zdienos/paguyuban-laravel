@@ -47,12 +47,12 @@
                     <div class="mb-3">
                         <label class="form-label" for="add-user-role">Role</label>
                         <select id="opt-role" class="form-select dt-role">
-                            <option value="0">User</option>
-                            <option value="1">Admin</option>
-                            <option value="2">Super Admin</option>
+                            <option value="1">User</option>
+                            <option value="2">Admin</option>
+                            <option value="3">Super Admin</option>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary me-sm-3 me-1 btn-simpan" name="xxxxxsubmitButton">Simpan</button>
+                    <button type="submit" class="btn btn-primary me-sm-3 me-1 btn-simpan" name="submitButton">Simpan</button>
                     <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Batal</button>
                 </form>
             </div>
