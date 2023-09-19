@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
             'full_name'=> 'z mardino santosa',
             'email' => 'admin@admin.com',
             'password' => bcrypt('asdasd'),
-            'role' => 1]);
+            'role' => 1
+        ]);
     }
 }

@@ -2,28 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Guru;
 
-
-class GuruController extends Controller
+class UserController extends Controller
 {
-
     public function index()
     {
-        return view('master.guru.index');
+        return view('master.user.index');
     }
 
     public function get(Request $request)
     {
-        $data = Guru::orderBy('id')->get();
+        $data = User::orderBy('id')->get();
         return response()->json(['aaData' => $data]);
     }
 
     public function simpan(Request $request)
     {
         $rules = [
-            'nama_lengkap' => 'required|min:3',
+            'username' => 'required|min:3',
+            'email' => 'required|email',
         ];
 
         $validator = \Validator::make($request->all(), $rules);
@@ -32,17 +31,16 @@ class GuruController extends Controller
             $response = ['status' => false, 'message' => $validator->errors()->all()];
         } else {
             // dd($request);
-            Guru::updateOrCreate(
+            User::updateOrCreate(
                 [
                     'id' => $request->id
                 ],
                 [
-                    'nama_lengkap' => $request->nama_lengkap,
-                    'nik'  => $request->nik,
-                    'kelamin' => $request->kelamin,
-                    'bidang_studi' => $request->bidang_studi,
-                    'alamat' => $request->alamat,
-                    'handphone' => $request->handphone,
+                    'username' => $request->username,
+                    'full_name'  => $request->fullname,
+                    'email' => $request->email,
+                    'password' => bcrypt($request->email),
+                    'role' => $request->role,
                 ]
             );
             $response = ['status' => true, 'message' => 'Berhasil menyimpan'];
@@ -57,11 +55,10 @@ class GuruController extends Controller
         $id = request('id');
 
         if ($id) {
-            Guru::where(['id' => $id])->delete();
+            User::where(['id' => $id])->delete();
             $response = ['status' => true, 'message' => 'Berhasil menghapus'];
         }
 
         return response()->json($response);
     }
-
 }

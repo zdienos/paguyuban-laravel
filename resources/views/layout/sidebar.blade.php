@@ -29,14 +29,14 @@
         </li>
 
         <!-- Master -->
-        <li class="menu-item {{ in_array(request()->route()->getName(),['guru.','kelas.']) ? 'active open' : '' }}">
+        <li class="menu-item {{ in_array(request()->route()->getName(),['guru.','kelas.','user.']) ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ti ti-layout-sidebar"></i>
                 <div data-i18n="Master">Master</div>
             </a>
 
             <ul class="menu-sub">
-                <li class="menu-item {{ in_array(request()->route()->getName(),['guru.','kelas.']) ? 'active' : '' }}">
+                <li class="menu-item {{ request()->route()->getName() == 'guru.' ? 'active' : '' }}">
                     <a href="{{ route('guru.') }}" class="menu-link">
                         <div data-i18n="Data Guru">Data Guru</div>
                     </a>
@@ -51,11 +51,19 @@
                         <div data-i18n="Data Siswa">Data Siswa</div>
                     </a>
                 </li>
-                <li class="menu-item">
+                {{-- @if(\App\Models\User::isSuperAdmin()) --}}
+                @if(Auth::user()->isSuperAdmin())
+                <li class="menu-item {{ request()->route()->getName() == 'user.' ? 'active' : '' }}">
+                    <a href="{{ route('user.') }}" class="menu-link">
+                        <div data-i18n="Data User">Data User</div>
+                    </a>
+                </li>
+                @endif
+                {{-- <li class="menu-item">
                     <a href="../horizontal-menu-template" class="menu-link" target="_blank">
                         <div data-i18n="Jenis Transaksi">Horizontal</div>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </li>
 

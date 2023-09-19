@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/', function () {
+    return view('index');
+});
 
 // Route::get('/auth', function () {
 //     return view('auth.index');
@@ -65,6 +69,21 @@ Route::group([
     Route::post('/simpan', [GuruController::class, 'simpan'])->name('simpan');
     Route::post('/hapus', [GuruController::class, 'hapus'])->name('hapus');
 });
+
+
+Route::group([
+    'middleware'=>['auth','roles'],
+    'prefix' => 'user',
+    'as' => 'user.'
+], function () {
+    Route::group(['roles'=>'superadmin'],function() {
+        Route::get('/', [UserController::class, 'index']);
+        Route::get('/get', [UserController::class, 'get'])->name('get');
+        Route::post('/simpan', [UserController::class, 'simpan'])->name('simpan');
+        Route::post('/hapus', [UserController::class, 'hapus'])->name('hapus');
+    });
+});
+
 
 
 // request()->in_array()
